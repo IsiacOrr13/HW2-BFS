@@ -24,3 +24,4 @@ class Graph:
         """
         return
 f = pathlib.Path(__file__).resolve().parent.parent / 'data/tiny_network.adjlist'
+
