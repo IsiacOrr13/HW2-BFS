@@ -1,8 +1,10 @@
-# write tests for bfs
+from search import Graph
 import pytest
-from search import graph
+import pathlib
 
 def test_bfs_traversal():
+    f = pathlib.Path(__file__).resolve().parent.parent / 'data/tiny_network.adjlist'
+    x = Graph(f)
     """
     TODO: Write your unit test for a breadth-first
     traversal here. Create an instance of your Graph class 
@@ -10,7 +12,7 @@ def test_bfs_traversal():
     that all nodes are being traversed (ie. returns 
     the right number of nodes, in the right order, etc.)
     """
-    pass
+    assert isinstance(x, object)
 
 def test_bfs():
     """

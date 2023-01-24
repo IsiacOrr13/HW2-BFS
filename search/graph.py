@@ -1,4 +1,5 @@
 import networkx as nx
+import pathlib
 
 class Graph:
     """
@@ -22,7 +23,4 @@ class Graph:
 
         """
         return
-
-
-
-
+f = pathlib.Path(__file__).resolve().parent.parent / 'data/tiny_network.adjlist'
