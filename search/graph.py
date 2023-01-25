@@ -83,7 +83,7 @@ class Graph:
             print('Graph is empty, check file')
             return None
 
-f = pathlib.Path(__file__).resolve().parent.parent / 'data/tiny_network.adjlist'
+f = pathlib.Path(__file__).resolve().parent.parent / 'data/unconnected.adjlist'
 x = Graph(f)
 start = 'Luke Gilbert'
 end = 'Martin Kampmann'

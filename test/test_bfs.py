@@ -2,17 +2,28 @@ from search import Graph
 import pytest
 import pathlib
 
-def test_bfs_traversal():
-    f = pathlib.Path(__file__).resolve().parent.parent / 'data/tiny_network.adjlist'
+
+def test_empty_graph():
+    f = pathlib.Path(__file__).resolve().parent.parent / 'data/empty.adjlist'
     x = Graph(f)
-    """
-    TODO: Write your unit test for a breadth-first
-    traversal here. Create an instance of your Graph class 
-    using the 'tiny_network.adjlist' file and assert 
-    that all nodes are being traversed (ie. returns 
-    the right number of nodes, in the right order, etc.)
-    """
-    assert isinstance(x, object)
+    start = 'Check'
+    assert x.bfs(start) is None
+    end = 'Mate'
+    assert x.bfs(start, end) is None
+
+def test_path_unconnected_graph():
+    f = pathlib.Path(__file__).resolve().parent.parent / 'data/unconnected.adjlist'
+    x = Graph(f)
+    start = '31806696'
+    assert x.bfs(start) is ['31806696', 'Luke Gilbert']
+
+def test_valid_graph():
+    f = pathlib.Path(__file__).resolve().parent.parent / 'data/tiny_network.adjlist'
+    x = Graph(str(f))
+    start = 'Luke Gilbert'
+    end = 'Martin Kampmann'
+    assert x.bfs(start) is None
+    assert x.bfs(start, end) is None
 
 def test_bfs():
     """
