@@ -11,6 +11,7 @@ class Graph:
     
     You may add any functions you deem necessary to the class
     """
+
     def __init__(self, filename: str):
         """
         Initialization of graph object 
@@ -19,31 +20,39 @@ class Graph:
             self.graph = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";")
             self.nodes = self.graph.nodes()
             self.edges = self.graph.edges()
-
         except:
             print('Unreadable file -- Check file name, type, and structure')
 
     def bfs_search(self, node):
+        '''
+        This method runs a search in the case that there is no end node. Takes in a start node and
+        returns a list of transversed nodes in order they were transversed.
+        '''
         q = Queue()
-        visited = set()
+        visited = []
         q.put(node)
-        while q:
+        while not q.empty():
             curr_node = q.get()
             if curr_node not in visited:
-                visited.add(curr_node)
+                visited.append(curr_node)
                 for edge in self.edges():
                     if edge[0] == curr_node and edge[1] not in visited:
                         q.put(edge[1])
-        return visited
+        return visited;
 
     def path_bfs(self, node, end):
+        '''
+        This method runs the bfs search in the case that there is a start and an end node.
+        It takes in the start and end nodes and returns a list of nodes that make up the shortest
+        path between start and end
+        '''
         q = Queue()
         visited = set()
         q.put(node)
         path_lens = dict()
         path_lens[node] = 0
         prevs = dict()
-        while q:
+        while not q.empty():
             curr_node = q.get()
             if curr_node not in visited:
                 dist = path_lens[curr_node] + 1
@@ -60,12 +69,17 @@ class Graph:
                     at_node = end
                     for idx in range(path_lens[end] + 1):
                         path[path_lens[end] - idx] = at_node
-                        if at_node != start:
+                        if at_node != node:
                             at_node = prevs[at_node]
                     return path
         return None
 
     def bfs(self, node, end=None):
+        '''
+        This method checks to see if the graph exists, the start node is in the graph, and if the end
+        node exist sin the graph and calls the bfs_search or path_bfs depending on the results. If neither is
+        applicable, None is returned.
+        '''
         if self.nodes() or self.edges():
             if node in self.nodes():
                 if end:
@@ -82,13 +96,3 @@ class Graph:
         else:
             print('Graph is empty, check file')
             return None
-
-f = pathlib.Path(__file__).resolve().parent.parent / 'data/unconnected.adjlist'
-x = Graph(f)
-start = 'Luke Gilbert'
-end = 'Martin Kampmann'
-#end = '31540829'
-
-
-
-print(x.bfs(start, end))
